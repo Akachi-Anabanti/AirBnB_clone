@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-
 """This is the base model
 defines the base attr of the model
 and it behaviour
 """
 import uuid
 import datetime
-from datetime import datetime, timezone
+from datetime import datetime
 
 
 class BaseModel:
@@ -14,8 +13,8 @@ class BaseModel:
     def __init__(self):
         """Initilizes the class"""
         self.id = str(uuid.uuid4())
-        self.created_at = datetime.now(timezone.utc)
-        self.updated_at = datetime.now(timezone.utc)
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
 
     def __str__(self):
         """The string method"""
@@ -27,7 +26,7 @@ class BaseModel:
         """updates the public method 'updated_at'
         with the current datetime"""
 
-        self.updated_at = datetime.now(timezone.utc)
+        self.updated_at = datetime.now()
 
     def to_dict(self):
         """Returns a dictionary representation containing
