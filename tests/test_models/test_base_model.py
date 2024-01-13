@@ -46,3 +46,11 @@ class BaseModelTest(unittest.TestCase):
         """tests if the dictionary object contains new instance variables"""
         self.assertIn("my_number", self.mod1_json.keys())
         self.assertIn("my_name", self.mod1_json.keys())
+
+    def test_base_model_instance_created_from_dict(self):
+        """tests new instance is created from dict"""
+        mod2 = BaseModel(**self.mod1_json)
+        self.assertEqual(self.mod1.id, mod2.id)
+        self.assertEqual(self.mod1.created_at, mod2.created_at)
+        self.assertIsNot(mod2, self.mod1)
+        self.assertNotIn('__class__', vars(mod2).keys())
