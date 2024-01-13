@@ -17,12 +17,11 @@ class BaseModel:
         self.created_at = datetime.now(timezone.utc)
         self.updated_at = datetime.now(timezone.utc)
 
-
     def __str__(self):
         """The string method"""
         return "[{}] ".format(type(self).__name__) +\
-                "({}) ".format(self.id) +\
-                "{}".format(self.__dict__)
+            "({}) ".format(self.id) +\
+            "{}".format(self.__dict__)
 
     def save(self):
         """updates the public method 'updated_at'
@@ -35,8 +34,8 @@ class BaseModel:
         all keys/values of __dict__ of the instance"""
         dict_vals = (self.__dict__).copy()
         dict_vals["created_at"] =\
-                dict_vals["created_at"].isoformat()
+            dict_vals["created_at"].isoformat()
         dict_vals["updated_at"] =\
-                dict_vals["updated_at"].isoformat()
+            dict_vals["updated_at"].isoformat()
         dict_vals['__class__'] = type(self).__name__
         return dict_vals
