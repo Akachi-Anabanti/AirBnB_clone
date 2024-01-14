@@ -4,17 +4,22 @@ import cmd
 
 
 class HBNBCommand(cmd.Cmd):
-    """HBNB class inheriting the cmd.Cmd class"""
+    """Defines the HBnB command interpreter.
+
+    Attributes:
+        prompt (str): The command prompt.
+    """
 
     prompt = "(hbnb) "
 
     def do_quit(self, arg):
-        """Quit command to exit the program \n
+        """Quit command to exit the program.
         """
         return True
 
     def do_EOF(self, arg):
         """Handles EOF and terminates the program"""
+        print("")
         return True
 
     def emptyline(self):
@@ -24,5 +29,5 @@ class HBNBCommand(cmd.Cmd):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     HBNBCommand().cmdloop()
