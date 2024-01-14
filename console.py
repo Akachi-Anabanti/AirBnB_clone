@@ -2,9 +2,9 @@
 """This is the console file"""
 import cmd
 from models.base_model import BaseModel
+from models.engine.file_storage import file_path
 import json
-
-file_path = "file.json"
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -45,7 +45,7 @@ class HBNBCommand(cmd.Cmd):
 
         if not line:
             print("** class name missing **")
-            return False 
+            return False
         if len(line.split(" ")) > 1 or line not in self.__class_names.keys():
             print("** class doesn't exist **")
             return False
@@ -55,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """
-        Prints the string representation of 
+        Prints the string representation of
         an instance based on the class name and id
 
         Usage:
@@ -126,11 +126,10 @@ class HBNBCommand(cmd.Cmd):
                 return False
 
         del objects[instance_key]
+        storage.delete(instance_key)
 
         with open(file_path, "w") as f:
             json.dump(objects, f)
-
-        self.__class_names[class_name].all().pop(instance_key)
 
     def do_all(self, line):
         """
@@ -151,7 +150,8 @@ class HBNBCommand(cmd.Cmd):
                 obj_list.append(str(my_obj_instance))
             print(obj_list)
 
-        elif len(line.split(" ")) > 1 or line not in self.__class_names.keys():
+        elif len(line.split(" ")) > 1 or\
+                line not in self.__class_names.keys():
             print("** class doesn't exist **")
             return False
 
@@ -159,9 +159,48 @@ class HBNBCommand(cmd.Cmd):
             for obj_key, obj_dict in objects.items():
                 if obj_key.startswith(line):
                     class_name = obj_key.split(".")[0]
-                    my_obj_instance = self.__class_names[class_name](**obj_dict)
+                    my_obj_instance =\
+                        self.__class_names[class_name](**obj_dict)
                     obj_list.append(str(my_obj_instance))
             print(obj_list)
+
+    def do_update(self, line):
+        """Updates an instance based on the class name
+        and id by updating the change into the JSON file
+        usage:
+            $ update <class name> <id> <attribute name> <attribute value>"
+        only one attribute can be updated at a time
+        """
+        with open(file_path) as f:
+            objects = json.load(f)
+        if not line:
+            print("** class name missing **")
+            return False
+        cmd_args = line.split(" ")
+
+        if cmd_args[0] not in self.__class_names.keys():
+            print("** class doesn't exist **")
+            return False
+        if len(cmd_args) < 2:
+            print("** instance id missing **")
+            return False
+        class_name = cmd_args[0]
+        obj_instance_id = cmd_args[1]
+        instance_key = class_name + "." + obj_instance_id
+        if instance_key not in objects.keys():
+            print("** no instance found **")
+            return False
+        if len(cmd_args) < 3:
+            print("** attribute name missing **")
+            return False
+        if len(cmd_args) < 4:
+            print("** value missing **")
+            return False
+        attr_name = cmd_args[2]
+        attr_val = cmd_args[3]
+
+        obj_dict = objects[instance_key]
+        obj_dict[attr_name] = attr_val
 
 
 if __name__ == "__main__":

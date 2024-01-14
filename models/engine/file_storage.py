@@ -3,8 +3,11 @@
 import json
 
 
+file_path = "file.json"
+
+
 class FileStorage:
-    __file_path = "file.json"  # string - path to the JSON file
+    __file_path = file_path  # string - path to the JSON file
     __objects = {}  # dictionary - stores all objects by <class name>.id
 
     def all(self):
@@ -30,3 +33,7 @@ class FileStorage:
                         {k: BaseModel(**v) for k, v in json.load(f).items()}
         except FileNotFoundError:
             pass
+
+    def delete(self, instance_key):
+        """Deletes object from storage"""
+        del self.__objects[instance_key]
