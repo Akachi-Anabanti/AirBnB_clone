@@ -202,6 +202,10 @@ class HBNBCommand(cmd.Cmd):
         obj_dict = objects[instance_key]
         obj_dict[attr_name] = attr_val
 
+        my_obj_instance = self.__class_names[class_name](**obj_dict)
+        storage.new(my_obj_instance)
+        my_obj_instance.save()
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
