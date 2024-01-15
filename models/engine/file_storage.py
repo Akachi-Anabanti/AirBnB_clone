@@ -27,10 +27,15 @@ class FileStorage:
     def reload(self):
         "deserializes the JSON file to __objects"
         from models.base_model import BaseModel
+        from models.user import User
+
         try:
             with open(self.__file_path, 'r') as f:
+
                 self.__objects =\
-                        {k: BaseModel(**v) for k, v in json.load(f).items()}
+                        {k: BaseModel(**v) if k.startswith("BaseModel") else
+                            User(**v) for k, v in json.load(f).items()
+                         }
         except FileNotFoundError:
             pass
 
