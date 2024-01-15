@@ -2,6 +2,7 @@
 """This is the console file"""
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models.engine.file_storage import file_path
 import json
 from models import storage
@@ -14,7 +15,7 @@ class HBNBCommand(cmd.Cmd):
         prompt (str): The command prompt.
     """
 
-    __class_names = {"BaseModel": BaseModel}
+    __class_names = {"BaseModel": BaseModel, "User": User}
 
     prompt = "(hbnb) "
 
