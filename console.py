@@ -3,6 +3,11 @@
 import cmd
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 from models.engine.file_storage import file_path
 import json
 from models import storage
@@ -15,7 +20,14 @@ class HBNBCommand(cmd.Cmd):
         prompt (str): The command prompt.
     """
 
-    __class_names = {"BaseModel": BaseModel, "User": User}
+    __class_names = {"BaseModel": BaseModel,
+                     "User": User,
+                     "Place": Place,
+                     "City": City,
+                     "Review": Review,
+                     "Amenity": Amenity,
+                     "State": State
+                     }
 
     prompt = "(hbnb) "
 
