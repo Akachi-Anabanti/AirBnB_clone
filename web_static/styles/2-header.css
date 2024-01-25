@@ -1,13 +1,5 @@
 header {
-	background-color: #FFFFFF;
+	background-color: #FF0000;
 	height: 70px;
 	width: 100%;
-	border-bottom: 1px solid #CCCCCC;
-}
-header .logo {
-	background: url('../images/logo.png') 0 0 no-repeat;
-	background-size: auto 75%;
-	display: inline-block;
-	height: inherit;
-	width: 200px;
 }
