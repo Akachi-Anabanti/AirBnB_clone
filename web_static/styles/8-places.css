@@ -52,32 +52,39 @@
 .max_guest,
 .number_rooms,
 .number_bathrooms {
+	display: flex;
+	flex-direction: column;
 	width: 100px;
 	height: 80px;
 	display: inline-block;
-	background-size: 100% 100%;
 	margin: auto;
 	position: relative;
 }
 
-.max_guest {
+.max_guest .icon {
+	width: 100px;
+	height: 60px;
 	background: url("../images/icon_group.png") 0 0 no-repeat;
+	margin: auto;
 }
 
-.number_rooms {
+.number_rooms .icon {
+	width: 100px;
+	height: 60px;
 	background: url("../images/icon_bed.png") 0 0 no-repeat;
+	margin: auto;
 }
 
-.number_bathrooms {
+.number_bathrooms .icon {
+	width: 100px;
+	height: 60px;
 	background: url("../images/icon_bath.png") 0 0 no-repeat;
+	margin: auto;
 }
 
 .max_guest h4,
 .number_rooms h4,
 .number_bathrooms h4 {
 	font-weight: 600;
-	font-size: 15px;
-	text-align: center;
-	margin-top: auto;
-	position: relative;
+	margin: auto;
 }
